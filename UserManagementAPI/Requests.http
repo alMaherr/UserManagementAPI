@@ -1,0 +1,56 @@
+@host = http://localhost:5119
+
+###
+# Valid Token
+GET {{host}}/api/users
+Authorization: Bearer secret-token
+
+###
+# Invalid Token
+GET {{host}}/api/users
+Authorization: Bearer wrong-token
+
+###
+# Missing Token
+GET {{host}}/api/users
+
+###
+# Get Existing User
+GET {{host}}/api/users/1
+Authorization: Bearer secret-token
+
+###
+# Get Non-Existent User
+GET {{host}}/api/users/999
+Authorization: Bearer secret-token
+
+###
+# Create User - Valid
+POST {{host}}/api/users
+Authorization: Bearer secret-token
+Content-Type: application/json
+
+{
+    "firstName": "Ahmed",
+    "lastName": "Hassan",
+    "email": "ahmed@techhive.com",
+    "department": "Finance"
+}
+
+###
+# Create User - Invalid Email
+POST {{host}}/api/users
+Authorization: Bearer secret-token
+Content-Type: application/json
+
+{
+    "firstName": "Ahmed",
+    "lastName": "Hassan",
+    "email": "invalid-email",
+    "department": "Finance"
+}
+
+###
+# Trigger Exception
+GET {{host}}/api/users/error
+Authorization: Bearer secret-token
